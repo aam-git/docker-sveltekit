@@ -10,7 +10,7 @@ FROM node:17-alpine as build
 
 WORKDIR /install
 
-COPY --from preinstall /install/kit/packages/create-svelte/templates/skeleton/ .
+COPY --from=preinstall /install/kit/packages/create-svelte/templates/skeleton/ .
 
 RUN NODE_ENV=development && npm install && npm i @sveltejs/adapter-node@next && npm run build
 		
