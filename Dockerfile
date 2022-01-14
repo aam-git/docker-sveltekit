@@ -19,7 +19,7 @@ WORKDIR /usr/src/app
 
 COPY --from=install --chown=node:node /install/kit/packages/create-svelte/templates/skeleton/ .
 
-RUN NODE_ENV=development && npm install
+RUN NODE_ENV=development && npm install && npm i @sveltejs/adapter-node@next svelte-preprocess postcss autoprefixer tailwindcss && npx svelte-add@latest tailwindcss
 
 EXPOSE 3000
 
