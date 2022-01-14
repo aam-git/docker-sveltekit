@@ -6,7 +6,7 @@ USER node
 
 WORKDIR /usr/src/app
 
-npm init svelte@next /usr/src/app
+RUN npm init svelte@next /usr/src/app
 
 RUN NODE_ENV=development && npm install
 
