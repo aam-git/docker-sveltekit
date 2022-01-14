@@ -10,9 +10,9 @@ FROM node:17-alpine
 
 MAINTAINER AAMServices <info@aamservices.uk>
 
-COPY --from=install /install/kit/packages/create-svelte/templates/default/ .
-
 WORKDIR /usr/src/app
+
+COPY --from=install /install/kit/packages/create-svelte/templates/default/ .
 
 RUN NODE_ENV=development && npm install
 
