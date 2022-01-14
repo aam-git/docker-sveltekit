@@ -3,7 +3,6 @@ FROM alpine/git as preinstall
 RUN git clone https://github.com/sveltejs/kit.git /install/kit && \
 		mv /install/kit/packages/create-svelte/templates/skeleton/package.template.json /install/kit/packages/create-svelte/templates/skeleton/package.json && \
 		sed -i 's/workspace:\*/next/g' /install/kit/packages/create-svelte/templates/skeleton/package.json && \ 
-		sed -i 's/svelte-kit dev/svelte-kit dev --host 0.0.0.0/g' /install/kit/packages/create-svelte/templates/skeleton/package.json && \
 		sed -i 's/adapter-auto/adapter-node/g' /install/kit/packages/create-svelte/templates/skeleton/svelte.config.js
 
 FROM node:17-alpine as build
