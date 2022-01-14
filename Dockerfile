@@ -1,4 +1,4 @@
-FROM bitnami/git:latest as install
+FROM alpine/git as install
 
 WORKDIR /install
 
