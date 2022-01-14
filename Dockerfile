@@ -1,10 +1,10 @@
 FROM bitnami/git:latest as install
 
-MAINTAINER AAMServices <info@aamservices.uk>
-
 WORKDIR /install
 
 RUN git clone https://github.com/sveltejs/kit.git
+
+RUN sed -i 's/workspace:*/next/g' /install/kit/packages/create-svelte/templates/default/package.json && rm /install/kit/packages/create-svelte/templates/default/package.template.json
 
 FROM node:17-alpine
 
