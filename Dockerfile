@@ -16,7 +16,7 @@ USER node
 
 WORKDIR /usr/src/app
 
-COPY --from=install /install/kit/packages/create-svelte/templates/default/ .
+COPY --from=install --chown=node:node /install/kit/packages/create-svelte/templates/default/ .
 
 RUN NODE_ENV=development && npm install
 
