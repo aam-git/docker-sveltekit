@@ -20,4 +20,4 @@ RUN NODE_ENV=development && npm install
 
 EXPOSE 3000
 
-CMD ["HOST=0.0.0.0", "npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--host", "0.0.0.0"]
