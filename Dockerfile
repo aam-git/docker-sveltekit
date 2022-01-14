@@ -11,7 +11,7 @@ WORKDIR /install
 
 COPY --from=preinstall /install/kit/packages/create-svelte/templates/skeleton/ .
 
-RUN NODE_ENV=development && npm install && npm i @sveltejs/adapter-node@next && npm run build
+RUN NODE_ENV=development && npm install && npm i @sveltejs/adapter-node@next && npx svelte-add@latest tailwindcss && npm run build
 		
 
 FROM node:17-alpine
