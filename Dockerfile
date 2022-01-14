@@ -1,12 +1,18 @@
-FROM bitnami/git:latest as install
+FROM alpine/git as preinstall
+
+RUN git clone https://github.com/sveltejs/kit.git /install/kit && \
+		mv /install/kit/packages/create-svelte/templates/skeleton/package.template.json /install/kit/packages/create-svelte/templates/skeleton/package.json && \
+		sed -i 's/workspace:\*/next/g' /install/kit/packages/create-svelte/templates/skeleton/package.json && \ 
+		sed -i 's/svelte-kit dev/svelte-kit dev --host 0.0.0.0/g' /install/kit/packages/create-svelte/templates/skeleton/package.json && \
+		sed -i 's/adapter-auto/adapter-node/g' /install/kit/packages/create-svelte/templates/skeleton/svelte.config.js
+
+FROM node:17-alpine as build
 
 WORKDIR /install
 
-RUN git clone https://github.com/sveltejs/kit.git
+COPY --from preinstall /install/kit/packages/create-svelte/templates/skeleton/ .
 
-RUN mv /install/kit/packages/create-svelte/templates/skeleton/package.template.json /install/kit/packages/create-svelte/templates/skeleton/package.json && \
-		sed -i 's/workspace:\*/next/g' /install/kit/packages/create-svelte/templates/skeleton/package.json && \ 
-		sed -i 's/svelte-kit dev/svelte-kit dev --host 0.0.0.0/g' /install/kit/packages/create-svelte/templates/skeleton/package.json
+RUN NODE_ENV=development && npm install && npm i @sveltejs/adapter-node@next && npm run build
 		
 
 FROM node:17-alpine
@@ -17,10 +23,12 @@ USER node
 
 WORKDIR /usr/src/app
 
-COPY --from=install --chown=node:node /install/kit/packages/create-svelte/templates/skeleton/ .
+COPY --from=build --chown=node:node /install/package.json /install/build/ .
 
-RUN NODE_ENV=development && npm install
+RUN NODE_ENV=production && npm install
+
+USER node
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "index.js"]
