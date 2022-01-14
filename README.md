@@ -5,10 +5,15 @@ powered by node:17-alpine
 [SvelteKit][1] The Fastest Way to Build Svelte Apps.
 
 
+Available tags you can use: 
 
-Available tags you can use: latest (default) or dev
+- latest (skeleton template) DEFAULT
+- production-tailwind (skeleton template with tailwind 2)
+- production-demo (demo template)
+- dev (skeleton template)
+- dev-demo (demo template)
 
-Tag dev runs in live reload mode so you can make changes to the file and they update on the website without need to restart
+dev tags run in live reload mode so you can make changes to the file and they update on the website without need to restart
 
 
 ## docker-compose.yml
