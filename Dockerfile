@@ -6,7 +6,7 @@ RUN git clone https://github.com/sveltejs/kit.git /install/kit && \
 		sed -i 's/adapter-auto/adapter-node/g' /install/kit/packages/create-svelte/templates/skeleton/package.json && \ 
 		sed -i 's/adapter-auto/adapter-node/g' /install/kit/packages/create-svelte/templates/skeleton/svelte.config.js
 
-FROM node:17-alpine as build
+FROM node:19-alpine as build
 
 WORKDIR /install
 
@@ -15,7 +15,7 @@ COPY --from=preinstall /install/kit/packages/create-svelte/templates/skeleton/ .
 RUN NODE_ENV=development && npm install && npm i @sveltejs/adapter-node@next svelte-preprocess postcss autoprefixer tailwindcss && npx svelte-add@latest tailwindcss && npm run build
 		
 
-FROM node:17-alpine
+FROM node:19-alpine
 
 MAINTAINER AAMServices <info@aamservices.uk>
 
